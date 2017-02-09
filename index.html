@@ -7,7 +7,6 @@
   <script src="assets/javascript/app.js"></script> -->
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
-
 </head>
 <body>
  <div class="container">
@@ -34,34 +33,20 @@
  </div>
  <script src='http://code.jquery.com/jquery-2.1.3.min.js'></script>
 <script type="text/javascript">
-  var superheroes = ['Spider Man', 'Iron Man', 'Captain America', 'Deadpool', 'Daredevil', 'X-Men', 'Hulk', 'Thor'];
-console.log(superheroes);
-renderButtons();
-
-$('#addHero').on('click', function(){
+  $('#addHero').on('click', function(){
     console.log('button is clicked')
 
     
     var heroNew = $('#hero-input').val();
 
-
-    
+    console.log(heroNew);
+    /*
      superheroes.push(heroNew);
      console.log(superheroes);
-     renderButtons();
-
-
-    return false;
+     renderButtons();*/
    
-  })
-
-//$('.heroButton').on('click', function() {
-$('#div01').on('click', '.heroButton', function() {
-        console.log('heroButton is clicked')
-
-        var heroGif = $(this).data('heronames');
-        console.log(heroGif);
-        var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + heroGif + "&api_key=dc6zaTOxFJmzC&limit=10";
+  
+        var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + heroNew + "&api_key=dc6zaTOxFJmzC&limit=10";
 
        $.ajax({
                 url: queryURL,
@@ -77,19 +62,12 @@ $('#div01').on('click', '.heroButton', function() {
                     console.log(results[i]);
 
                     var heroDiv = $('<div>');
-
-                    
                     var p = $('<p>')
-                    p.text('rating ' + results[i].rating);
-                    
+                    p.text('rating' + results[i].rating);
                     // have to look the inspector to know the AIP element
                     console.log(results[i].rating);
                     var heroImage = $('<img>');
-                    heroImage.attr('src', results[i].images.fixed_height_still.url);
-                     heroImage.attr('data-still', results[i].images.fixed_height_still.url);
-                      heroImage.attr('data-animate', results[i].images.fixed_height.url);
-                    heroImage.attr('data-state', 'still')
-                    heroImage.addClass('heroImage');
+                    heroImage.attr('src', results[i].images.fixed_height.url);
                     heroDiv.append(p);
                     heroDiv.append(heroImage);
                     $('#gifs').prepend(heroDiv);
@@ -97,26 +75,9 @@ $('#div01').on('click', '.heroButton', function() {
            })
 
 
-
-
-
-});
-
-function renderButtons(){ 
-
-      $('#div01').empty(); 
-      for (var i=0; i<superheroes.length; i++){
-          var a = $('<button>');
-          a.attr('data-heronames', superheroes[i]);
-          a.text(superheroes[i]);
-          a.addClass('heroButton');
-          $('#div01').append(a);
-          console.log(a);
-          console.log(i);
-      }
-
-
-};
+    return false;
+   
+  })
 
 
  $('#gifs').on('click', '.heroImage', function(){

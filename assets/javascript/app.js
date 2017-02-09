@@ -1,8 +1,8 @@
 
 
-  var superheroes = ['Spider Man', 'Iron Man', 'Captain America', 'Deadpool', 'Daredevil', 'X-Men', 'Hulk', 'Thor'];
+ /* var superheroes = ['Spider Man', 'Iron Man', 'Captain America', 'Deadpool', 'Daredevil', 'X-Men', 'Hulk', 'Thor'];
 console.log(superheroes);
-renderButtons();
+renderButtons();*/
 
 $('#addHero').on('click', function(){
     console.log('button is clicked')
@@ -10,11 +10,40 @@ $('#addHero').on('click', function(){
     
     var heroNew = $('#hero-input').val();
 
-
-    
+    console.log(heroNew);
+    /*
      superheroes.push(heroNew);
      console.log(superheroes);
-     renderButtons();
+     renderButtons();*/
+   
+  
+        var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + heroNew + "&api_key=dc6zaTOxFJmzC&limit=10";
+
+       $.ajax({
+                url: queryURL,
+                method: 'GET'
+            })
+            .done(function(response) {
+              
+                console.log(response)
+
+                var results = response.data;
+
+                for (var i = 0; i < 10; i++) {
+                    console.log(results[i]);
+
+                    var heroDiv = $('<div>');
+                    var p = $('<p>')
+                    p.text('rating' + results[i].rating);
+                    // have to look the inspector to know the AIP element
+                    console.log(results[i].rating);
+                    var heroImage = $('<img>');
+                    heroImage.attr('src', results[i].images.fixed_height.url);
+                    heroDiv.append(p);
+                    heroDiv.append(heroImage);
+                    $('#gifs').prepend(heroDiv);
+                }
+           })
 
 
     return false;
@@ -22,7 +51,7 @@ $('#addHero').on('click', function(){
   })
 
 //$('.heroButton').on('click', function() {
-$('#div01').on('click', '.heroButton', function() {
+/*$('#div01').on('click', '.heroButton', function() {
         console.log('heroButton is clicked')
 
         var heroGif = $(this).data('heronames');
@@ -79,3 +108,4 @@ function renderButtons(){
 
 
 
+*/
